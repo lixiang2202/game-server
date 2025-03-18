@@ -1,12 +1,11 @@
 #include <iostream>
-
-#define UNUSED(x) (void)(x)
-
+#include "util_common.h"
+ 
 int _main_impl(int argc, char const *argv[])
 {
     UNUSED(argc); 
     UNUSED(argv);  
-    std::cout << "Hello, World!" << std::endl;
+    LogDebug("Hello, World!");
     return 0;
 }
  
