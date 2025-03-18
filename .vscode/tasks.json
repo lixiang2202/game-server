@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "cmake",
+            "command": "cmake -B ./build ."
+        },
+        {
+            "type": "shell",
+            "label": "cmake_build",
+            "command": "cmake --build ./build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "cmake",
+                "cmake_build"
+            ]
+        }
+    ]
+}
