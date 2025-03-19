@@ -1,5 +1,7 @@
 #include <iostream>
 #include "util_common.h"
+
+#include "test/coroutine20.h"
  
 int _main_impl(int argc, char const *argv[])
 {
@@ -11,5 +13,6 @@ int _main_impl(int argc, char const *argv[])
  
 int main(int argc, char const *argv[])
 {
-    return _main_impl(argc, argv);
+    // return _main_impl(argc, argv);
+    return _main_test_coroutine20();
 }
