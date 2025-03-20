@@ -1,5 +1,5 @@
 #pragma once
 
-#include "util/src/logger/logger.h"
+#include "logging.h"
 
 #define UNUSED(x) (void)(x)

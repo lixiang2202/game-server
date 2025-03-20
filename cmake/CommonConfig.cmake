@@ -26,6 +26,4 @@ if (MSVC)
     add_compile_options(/W4)
     # 忽略特定的警告
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4100")
-    # 设置 C++ 编译器的中间文件保留选项
-    # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /P")
 endif()

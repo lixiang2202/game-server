@@ -4,6 +4,11 @@ project(game-server CXX)
 
 include(cmake/CommonConfig.cmake)
 
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/util/include
+)
+
 set(LaunchSRCS 
     src/launch.cpp)
 
@@ -20,3 +25,21 @@ target_link_libraries(${PROJECT_NAME} PRIVATE task_scheduler)
 #     PUBLIC
 #         ${CMAKE_SOURCE_DIR}/src/util/include
 # )
+
+
+# if (MSVC)
+#     # 定义要预处理的源文件路径
+#     set(LAUNCH_SOURCE_FILE ${CMAKE_SOURCE_DIR}/src/launch.cpp)
+#     add_custom_target(preprocess_launch
+#         # 执行预处理命令
+#         COMMAND ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS} /P ${LAUNCH_SOURCE_FILE}
+#         # 设置工作目录
+#         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+#         # 注释信息
+#         COMMENT "Preprocessing source file: ${LAUNCH_SOURCE_FILE}"
+#         # 检查预处理文件是否生成
+#         COMMAND ${CMAKE_COMMAND} -E echo "Checking if preprocessed file was generated..."
+#         COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan "Preprocessed file: ${LAUNCH_SOURCE_FILE}.i"
+#         COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan "Preprocessing completed."
+#     )
+# endif()
