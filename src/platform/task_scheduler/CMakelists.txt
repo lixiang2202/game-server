@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.31)
+
+include(${CMAKE_SOURCE_DIR}/cmake/CommonConfig.cmake)
+
+project(task_scheduler CXX)
+
+file(GLOB_RECURSE TASK_SCHEDULER_SRC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+add_library(${PROJECT_NAME} STATIC ${TASK_SCHEDULER_SRC})
+
+# link_libraries(${PROJECT_NAME} PRIVATE util)
+target_include_directories(${PROJECT_NAME} 
+    PUBLIC 
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+)

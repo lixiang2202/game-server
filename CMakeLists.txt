@@ -9,12 +9,14 @@ set(LaunchSRCS
 
 # add_subdirectory(src/third_party)
 add_subdirectory(src/util)
+add_subdirectory(src/platform)
 
 add_executable(${PROJECT_NAME} ${LaunchSRCS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE util)
+target_link_libraries(${PROJECT_NAME} PRIVATE task_scheduler)
 
 # target_include_directories(${PROJECT_NAME}
 #     PUBLIC
-#         ${CMAKE_SOURCE_DIR}/include
+#         ${CMAKE_SOURCE_DIR}/src/util/include
 # )

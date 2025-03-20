@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 // 临时实现
 #define LogDebug(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 #define LogInfo(fmt, ...) printf("[INFO] " fmt "\n", ##__VA_ARGS__)
