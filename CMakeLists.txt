@@ -4,6 +4,17 @@ project(game-server CXX)
 
 include(cmake/CommonConfig.cmake)
 
+set(Build_VERSION_MAJOR 0)
+set(Build_VERSION_MINOR 1)
+
+string(TIMESTAMP Build_TIMESTAMP "%Y-%m-%d %H:%M:%S")
+
+configure_file(
+    ${CMAKE_SOURCE_DIR}/cmake/config.h.in
+    ${CMAKE_SOURCE_DIR}/src/config.h
+)
+
+
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/util/include

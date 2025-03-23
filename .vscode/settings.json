@@ -80,6 +80,7 @@
         "variant": "cpp",
         "vector": "cpp",
         "xhash": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "*.in": "cpp"
     }
 }

@@ -1,9 +1,7 @@
 #include <iostream>
+#include <format>
 #include "util_common.h"
 
-#include "test/coroutine20.h"
-#include "platform/task_scheduler/include/task_scheduler_manager.h"
- 
 int _main_impl(int argc, char const *argv[])
 {
     UNUSED(argc); 
@@ -12,16 +10,25 @@ int _main_impl(int argc, char const *argv[])
     return 0;
 }
 
-int _main_test_task_scheduler_manager()
+
+void ShowGameServerInfo()
 {
-    CTaskSchedulerManager task_scheduler_manager;
-    // task_scheduler_manager.Start();
-    // task_scheduler_manager.Stop();
-    return 0;
+    std::cerr << "\033[32m" 
+        << std::format("game-server Starting... \r\n  - version: {} \r\n  - build timestamp: {}"
+            , VERSION_FULL
+            , BUILD_TIMESTAMP) 
+        << "\033[m" 
+        << std::endl;
 }
  
+void OnTerminate()
+{
+    std::cerr << "\033[32m" << "game-server Terminating..." << "\033[m" << std::endl;
+}
+
 int main(int argc, char const *argv[])
 {
-    // return _main_impl(argc, argv);
-    return _main_test_coroutine20();
+    atexit(OnTerminate);
+    ShowGameServerInfo();
+    return _main_impl(argc, argv);
 }

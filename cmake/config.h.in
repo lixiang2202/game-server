@@ -1,0 +1,7 @@
+#pragma once
+
+#define VERSION_MAJOR @Build_VERSION_MAJOR@
+#define VERSION_MINOR @Build_VERSION_MINOR@
+#define VERSION_FULL @Build_VERSION_MAJOR@.@Build_VERSION_MINOR@
+
+#define BUILD_TIMESTAMP "@Build_TIMESTAMP@"
