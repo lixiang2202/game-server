@@ -13,27 +13,32 @@ enum class LogLevel {
     ERROR
 };
 
+// 定义日志级别对应的前缀
+constexpr const char* logLevelPrefixes[] = {
+    "\033[36m【DEBUG】", // DEBUG: 青色
+    "\033[32m【INFO】",  // INFO: 绿色
+    "\033[33m【WARN】", // WARN: 黄色
+    "\033[31m【ERROR】" // ERROR: 红色
+};
+
+constexpr const char* resetColor = "\033[0m";
+
 // 通用日志输出函数
 template<typename... Args>
 void Log(LogLevel level, Args&&... args) {
     std::ostringstream oss;
-    switch (level) {
-        case LogLevel::DEBUG:
-            oss << "debug ";
-            break;
-        case LogLevel::INFO:
-            oss << "info ";
-            break;
-        case LogLevel::WARN:
-            oss << "warn ";
-            break;
-        case LogLevel::ERROR:
-            oss << "error ";
-            break;
-    }
+    // 使用数组来获取日志级别前缀
+    oss << logLevelPrefixes[static_cast<size_t>(level)];
 
-    // 展开参数包并输出
-    (oss << ... << std::forward<Args>(args)) << '\n';
+    // 定义一个 lambda 函数用于将参数添加到流中，并在每个参数后添加空格
+    auto append_args = [&oss](auto&& arg) {
+        oss << std::forward<decltype(arg)>(arg) << ' ';
+    };
+    // 使用折叠表达式调用 lambda 函数处理每个参数
+    (append_args(std::forward<Args>(args)), ...);
+    // 添加重置颜色的转义序列
+    oss << resetColor << '\n';
+
     std::cout << oss.str();
 }
 

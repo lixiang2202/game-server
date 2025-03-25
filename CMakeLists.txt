@@ -31,6 +31,7 @@ add_executable(${PROJECT_NAME} ${LaunchSRCS})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE util)
 target_link_libraries(${PROJECT_NAME} PRIVATE task_scheduler)
+target_link_libraries(${PROJECT_NAME} PRIVATE time_manager)
 
 # target_include_directories(${PROJECT_NAME}
 #     PUBLIC
