@@ -13,4 +13,5 @@ namespace util
 }
 using noncopyable = util::CNonCopyable;
 
-
+#include <cstdint>
+using TimerId = uint64_t;
