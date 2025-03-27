@@ -82,5 +82,8 @@
         "xhash": "cpp",
         "xtree": "cpp",
         "*.in": "cpp"
+    },
+    "marscode.codeCompletionPro": {
+        "enableCodeCompletionPro": true
     }
 }

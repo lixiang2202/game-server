@@ -64,13 +64,34 @@ template<int SLOT_COUNT> // 时间轮槽的数量
 class CTimeWheel : public noncopyable
 {
 public:
+    using TickResult = std::pair<std::list<TimeTask*>, bool>;
     void AddTask(TimeTask* ap_task)
     {
         m_slots[ap_task->m_slot_info[ap_task->m_current_wheel_idx]].push_back(ap_task);
     }
-    std::tuple<std::list<TimeTask*>, bool> Tick()
-    {}
+    TickResult Tick()
+    {
+        ++m_current_slot;
+        if (m_current_slot >= SLOT_COUNT)
+        {
+            m_current_slot = 0;
+        }
+        TickResult result = std::make_pair(PopTask(m_current_slot), 0 == m_current_slot);
+        return result;
+    }
     uint32_t GetCurrentSlot() const { return m_current_slot; }
+protected:
+    std::list<TimeTask*> PopTask(uint32_t a_slot_idx)
+    {
+        std::list<TimeTask*> tmp;
+        if (a_slot_idx >= SLOT_COUNT)
+        {
+            return tmp;
+        }
+        tmp.swap(m_slots[a_slot_idx]);
+        return tmp;
+    }
+
 private:
     std::array<std::list<TimeTask*>, SLOT_COUNT> m_slots;
     uint32_t m_current_slot = 0;
@@ -165,15 +186,15 @@ private:
         for (uint32_t i = 0; i < diff_step; ++i)
         {
             ++m_time_wheel_tick; // 时间轮前进一步
-            // // 处理第一个轮,返回触发的所有任务，以及第一个轮是否完成一次循环的结果
-            // m_first_wheel->Tick();
-            // // 如果第一个轮完成了一次循环，则处理下一个轮（更新新一轮任务）
-            // for (int j = 0; j < OTHER_WHEEL_COUNT; ++j)
-            // {
-            //     // tick一次时间轮，走一个槽位，如果槽位中有任务，则返回出来。同时返回是否完成一次循环
-            //     m_other_wheels[j]->Tick();
-            //     // 如果没有完成一次循环，则后面的轮不需要处理，直接退出
-            // }
+            // 处理第一个轮,返回触发的所有任务，以及第一个轮是否完成一次循环的结果
+            m_first_wheel->Tick();
+            // 如果第一个轮完成了一次循环，则处理下一个轮（更新新一轮任务）
+            for (int j = 0; j < OTHER_WHEEL_COUNT; ++j)
+            {
+                // tick一次时间轮，走一个槽位，如果槽位中有任务，则返回出来。同时返回是否完成一次循环
+                m_other_wheels[j]->Tick();
+                // 如果没有完成一次循环，则后面的轮不需要处理，直接退出
+            }
             if (0 == m_time_wheel_tick)
             { // 一个大周期完成，更新时间轮的起始时间 TODO 这里有误差，需要处理
                 m_loop_start_time = now;
