@@ -30,8 +30,7 @@ public:
 private:
     CTimeManager();
     ~CTimeManager();
-    friend class CTimeManagerImplNormal; // 友元类，普通实现类
-    friend class CTimeManagerImplHeap; // 友元类，堆实现类
+    friend class CTimeManagerImplNormal; // 友元类，map实现类
     friend class CTimeManagerImplWheel; // 友元类，时间轮实现类
 
     class CTimeManagerImpl; 

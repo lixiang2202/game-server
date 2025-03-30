@@ -1,7 +1,6 @@
 ﻿#include "time_manager.h"
 #include "logging.h"
 #include "time_manager_impl_normal.h"
-#include "time_manager_impl_heap.h"
 #include "time_manager_impl_wheel.h"
 
 CTimeManager::CTimeManager() //: mp_impl(new CTimeManagerImpl())
@@ -19,9 +18,6 @@ void CTimeManager::Init()
     {
     case TimerType::USE_TIME_NORMAL:
         mp_impl = new CTimeManagerImplNormal();
-        break;
-    case TimerType::USE_TIME_HEAP:
-        mp_impl = new CTimeManagerImplHeap();
         break;
     case TimerType::USE_TIME_WHEEL:
         mp_impl = new CTimeManagerImplWheel();
