@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <chrono>
 
 // 定义日志级别枚举
 enum class LogLevel {
@@ -23,10 +24,26 @@ constexpr const char* logLevelPrefixes[] = {
 
 constexpr const char* resetColor = "\033[0m";
 
+
+
+
 // 通用日志输出函数
 template<typename... Args>
 void Log(LogLevel level, Args&&... args) {
     std::ostringstream oss;
+    
+    // 添加毫秒级时间戳
+    auto now = std::chrono::system_clock::now();
+    auto now_time_t = std::chrono::system_clock::to_time_t(now);
+    auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+        now.time_since_epoch()) % 1000;
+    
+    // 使用 localtime_s 替代 localtime
+    std::tm tm;
+    localtime_s(&tm, &now_time_t);
+    oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S")
+        << "." << std::setfill('0') << std::setw(3) << now_ms.count() << " ";
+    
     // 使用数组来获取日志级别前缀
     oss << logLevelPrefixes[static_cast<size_t>(level)];
 
@@ -39,7 +56,7 @@ void Log(LogLevel level, Args&&... args) {
     // 添加重置颜色的转义序列
     oss << resetColor << '\n';
 
-    std::cout << oss.str();
+    std::cerr << oss.str();
 }
 
 // 定义日志宏

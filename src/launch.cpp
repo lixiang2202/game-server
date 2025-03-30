@@ -29,6 +29,8 @@ void OnTerminate()
     std::cerr << "\033[32m" << "game-server Terminating..." << "\033[m" << std::endl;
 }
 
+
+
 int main(int argc, char const *argv[])
 {
     atexit(OnTerminate);
