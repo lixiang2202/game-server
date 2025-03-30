@@ -3,6 +3,8 @@
 #include "time_manager_impl.h"
 #include "base/object_pool.h"
 
+#include <map>
+
 
 class CTimeManagerImplNormal : public CTimeManager::CTimeManagerImpl
 {

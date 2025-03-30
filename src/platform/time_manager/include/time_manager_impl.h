@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "time_manager.h"
 #include "base/time_helper.h"
 
 constexpr uint32_t ONE_STEP_MILLI = 1; // 步长，第一个时间轮的最小单位，单位毫秒 TODO 可作为配置

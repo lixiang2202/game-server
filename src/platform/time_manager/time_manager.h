@@ -6,7 +6,6 @@
 #include "base/types.h"
 
 #include <functional>
-#include <map>
 using TimerCallback = std::function<void(void)>;
 enum class TimerType
 {
