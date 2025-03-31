@@ -63,7 +63,6 @@ public:
                 p_time_task->m_cb(); // 执行定时器任务的回调函数
             }
             m_timer_map.erase(iter++); // 删除定时器任务
-            LogDebug("ExecuteTask", p_time_task->m_timer_id, TimePointToString(p_time_task->m_target_time), p_time_task->m_interval);
             m_task_pool.Dealloc(p_time_task); // 释放定时器任务
         }
     }

@@ -1,14 +1,11 @@
 #include <iostream>
-#include <format>
 #include "util_common.h"
 
-#include "platform/time_manager/time_manager_test.h"
 int _main_impl(int argc, char const *argv[])
 {
     UNUSED(argc); 
     UNUSED(argv);  
     LogDebug("Hello, World!");
-    _time_manager_test();
     getchar();
     return 0;
 }

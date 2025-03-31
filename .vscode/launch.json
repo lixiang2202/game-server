@@ -15,6 +15,19 @@
             "environment": [],
             "console": "externalTerminal",
             "preLaunchTask": "cmake_build"
+        },
+        {
+            "name": "msvc_test",
+            "type": "cppvsdbg",
+            "request": "launch",
+            // "program": "${workspaceFolder}/build/test/Debug/time_manager_test.exe",
+            "program": "${workspaceFolder}/build/test/Debug/any_test.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "externalTerminal",
+            "preLaunchTask": "cmake_build"
         }
     ]
 }

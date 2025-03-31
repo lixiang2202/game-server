@@ -16,16 +16,16 @@ using SystemClock = std::chrono::system_clock;
 #define DurationCastSecond(v) std::chrono::duration_cast<std::chrono::seconds>((v))
 
 // std::chrono::steady_clock::time_point转为字符串，精度到毫秒
-std::string TimePointToString(std::chrono::system_clock::time_point tp) 
+std::string TimePointToString(std::chrono::system_clock::time_point a_tp) 
 {
-    auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-        tp.time_since_epoch()) % 1000;
+    auto time_sec = std::chrono::system_clock::to_time_t(a_tp);
+    auto time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+        a_tp.time_since_epoch()) % 1000;
     std::tm tm;
-    localtime_s(&tm, &now);
+    localtime_s(&tm, &time_sec);
     std::ostringstream oss;
     oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S")
-        << "." << std::setfill('0') << std::setw(3) << now_ms.count();
+        << "." << std::setfill('0') << std::setw(3) << time_ms.count();
     return oss.str();
 }
 
