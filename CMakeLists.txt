@@ -23,12 +23,22 @@ include_directories(
 set(LaunchSRCS 
     src/launch.cpp)
 
+# 设置可执行文件和库文件的输出目录
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
 # add_subdirectory(src/third_party)
 add_subdirectory(src/util)
 add_subdirectory(src/platform)
 add_subdirectory(test)
 
+
 add_executable(${PROJECT_NAME} ${LaunchSRCS})
+
+# 确保输出目录存在
+file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+file(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE util)
 target_link_libraries(${PROJECT_NAME} PRIVATE task_scheduler)
