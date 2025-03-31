@@ -17,8 +17,13 @@ public:
     virtual TimerId AddTimer(uint32_t a_interval, const TimerCallback &a_cb) override
     {
         TimerId timer_id = AllocTimerId();
-        uint64_t current_ms = GetCurrentTimeMs(); // 获取当前时间
-        uint64_t current_cycle = m_total_cycle + (current_ms - m_last_tick_time + a_interval) / ONE_STEP_MILLI; // 计算当前周期数
+        uint64_t diff_ms = GetCurrentTimeMs() - m_last_tick_time + a_interval; // 计算当前周期数
+        uint64_t diff_cycle = diff_ms / ONE_STEP_MILLI; // 计算当前周期数
+        if (diff_ms % ONE_STEP_MILLI > 0) // 如果当前周期数不是整数，则需要加1
+        {
+            ++diff_cycle;
+        }
+        uint64_t current_cycle = m_total_cycle + diff_cycle; // 计算当前周期数
         TimePoint target_time = SystemClock::now() + MilliSeconds(a_interval);
         TimeTask* p_time_task = m_task_pool.Alloc(timer_id, a_interval, target_time, a_cb);
         LogDebug("AddTimer", timer_id, current_cycle, TimePointToString(target_time), a_interval);

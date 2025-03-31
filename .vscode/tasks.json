@@ -17,7 +17,7 @@
             "problemMatcher": []
         },
         {
-            "label": "build",
+            "label": "peoject_build",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "cmake",

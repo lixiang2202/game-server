@@ -8,17 +8,20 @@ void func()
 {
     LogDebug("func 100ms");
     ADD_TIMER(10000, []() {
-        LogDebug("timer 10000ms");
+        LogDebug("timer 10000");
     });
     ADD_TIMER(1234, []() {
         LogDebug("timer 1234");
     });
-    ADD_TIMER(100000, []() {
-        LogDebug("timer 100000");
+    ADD_TIMER(2345, []() {
+        LogDebug("timer 2345");
     });
-    ADD_TIMER(99999, []() {
-        LogDebug("timer 99999");
-    });
+    // ADD_TIMER(100000, []() {
+    //     LogDebug("timer 100000");
+    // });
+    // ADD_TIMER(99999, []() {
+    //     LogDebug("timer 99999");
+    // });
 }
 int _time_manager_test()
 {

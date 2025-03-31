@@ -3,7 +3,7 @@
 #include "time_manager_impl_normal.h"
 #include "time_manager_impl_wheel.h"
 
-CTimeManager::CTimeManager() //: mp_impl(new CTimeManagerImpl())
+CTimeManager::CTimeManager() : m_timer_type(TimerType::USE_TIME_NORMAL)
 {
 
 }

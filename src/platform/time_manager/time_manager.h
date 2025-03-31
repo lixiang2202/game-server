@@ -10,8 +10,7 @@ using TimerCallback = std::function<void(void)>;
 enum class TimerType
 {
     USE_TIME_NORMAL = 0, // 普通定时器
-    USE_TIME_HEAP = 1, // 堆定时器(小顶堆)
-    USE_TIME_WHEEL = 2, // 时间轮
+    USE_TIME_WHEEL = 1, // 时间轮
 };
 class CTimeManager : public noncopyable
 {
@@ -35,7 +34,7 @@ private:
     class CTimeManagerImpl; 
     CTimeManagerImpl* mp_impl = nullptr;
 
-    TimerType m_timer_type = TimerType::USE_TIME_NORMAL;
+    const TimerType m_timer_type;
 };
 
 #define ADD_TIMER(interval, cb) CTimeManager::Instance().AddTimer(interval, cb)

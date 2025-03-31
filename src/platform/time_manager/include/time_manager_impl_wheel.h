@@ -12,7 +12,7 @@
 #include <thread>
 
 // 第一个轮占的位数
-constexpr int8_t FIRST_WHEEL_BITS = 2;
+constexpr int8_t FIRST_WHEEL_BITS = 8;
 // 第一个轮的长度
 constexpr int32_t FIRST_WHEEL_SIZE = 1 << FIRST_WHEEL_BITS; // 256
 // 其他轮占的位数
@@ -116,6 +116,7 @@ public:
         {
             m_other_wheels[i] = OtherWheelPtr(new CTimeWheel<OTHER_WHEEL_SIZE>());
         }
+        TickOnce(SystemClock::now()); // 跳过第0毫秒的槽位
     }
 
     void Init() override
@@ -159,14 +160,18 @@ public:
         // TODO 注意任务超过了一个时间轮的完整时间周期的情况，这里会截断时间。
         // 应该复用当前时间轮的位置前的slot，为下一轮周期创建任务，入参处需要判断任务时间不能超过一个时间轮周期
         uint32_t diff_step = (uint32_t)(diff.count() / ONE_STEP_MILLI); 
+        if (diff_step % ONE_STEP_MILLI > 0)
+        {
+            ++diff_step;
+        }
         TimeWheelTask* p_time_task = m_task_pool.Alloc(timer_id, a_interval, target_time, a_cb);
         
         for (int i = 0; i < WHEEL_COUNT; ++i)
         {
             p_time_task->m_slot_info[i] = 0 == i ? FIRST_WHEEL_INDEX(diff_step) : OTHER_WHEEL_INDEX(diff_step, i);
-            LogDebug("slot_info", i, p_time_task->m_slot_info[i]);
+            // LogDebug("slot_info", i, p_time_task->m_slot_info[i]);
         }
-        LogDebug("m_slot_info", std::bitset<32>(diff_step));
+        // LogDebug("m_slot_info", std::bitset<32>(diff_step));
         p_time_task->m_current_wheel_idx = 0; // 初始化在第一个轮中，后面会更新到正确的位置
         for (int i = WHEEL_COUNT - 1; i >= 0; --i)
         {
