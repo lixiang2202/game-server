@@ -8,5 +8,6 @@ file(GLOB_RECURSE TIME_MANAGER_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 add_library(${PROJECT_NAME} STATIC ${TIME_MANAGER_SRC})
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "platform")
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

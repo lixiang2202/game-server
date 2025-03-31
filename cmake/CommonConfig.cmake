@@ -1,3 +1,9 @@
+
+# CMake Common Configuration File
+set(CMAKE_SUPPRESS_REGENERATION TRUE)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+
 # 设置默认构建类型（如果没有指定）
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build." FORCE)

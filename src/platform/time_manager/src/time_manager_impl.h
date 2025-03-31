@@ -4,7 +4,7 @@
 constexpr uint32_t ONE_STEP_MILLI = 10; // 步长，第一个时间轮的最小单位，单位毫秒 TODO 可作为配置
 constexpr uint32_t ONE_STEP_MICRO = 1000 * ONE_STEP_MILLI; // 步长，单位微秒
 
-class CTimeManager::CTimeManagerImpl : public noncopyable
+class CTimeManager::CTimeManagerImpl : public CNonCopyable
 {
 public:
     virtual void Init() = 0;
@@ -20,7 +20,7 @@ private:
 /**
  * 定时器任务，保存任务的关键数据
  */
-struct TimeTask : public noncopyable
+struct TimeTask : public CNonCopyable
 {
     TimeTask(TimerId a_timer_id, uint32_t a_interval, TimePoint a_target_time, const TimerCallback &cb)
         : m_timer_id(a_timer_id), m_interval(a_interval), m_target_time(a_target_time), m_cb(cb) {}

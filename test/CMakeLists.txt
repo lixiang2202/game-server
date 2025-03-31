@@ -14,5 +14,6 @@ foreach(src ${TEST_SRC_LIST})
     get_filename_component(bin_name ${src} NAME_WE)
     add_executable(${bin_name} ${src})
     target_link_libraries(${bin_name} PRIVATE ${GAME_SERVER_LIBS})
+    set_target_properties(${bin_name} PROPERTIES FOLDER "test")
 endforeach()
 

@@ -14,7 +14,6 @@ configure_file(
     ${CMAKE_SOURCE_DIR}/src/config.h
 )
 
-
 include_directories(
     ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/src/util/include
@@ -33,8 +32,8 @@ add_subdirectory(src/util)
 add_subdirectory(src/platform)
 add_subdirectory(test)
 
-
 add_executable(${PROJECT_NAME} ${LaunchSRCS})
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "launch")
 
 # 确保输出目录存在
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

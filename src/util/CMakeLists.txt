@@ -11,6 +11,7 @@ file(GLOB_RECURSE ALL_SRCS
 set(UtilSRCS ${ALL_SRCS}) 
 
 add_library(${PROJECT_NAME} STATIC ${UtilSRCS})
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "until")
 
 target_include_directories(${PROJECT_NAME} 
     PUBLIC

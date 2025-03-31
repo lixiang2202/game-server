@@ -12,14 +12,9 @@ enum class TimerType
     USE_TIME_NORMAL = 0, // 普通定时器
     USE_TIME_WHEEL = 1, // 时间轮
 };
-class CTimeManager : public noncopyable
+class CTimeManager : public CSingleton<CTimeManager>
 {
 public:
-    static CTimeManager& Instance()
-    {
-        static CTimeManager s_instance;
-        return s_instance;
-    }
     void Init();
     TimerId AddTimer(uint32_t interval, const TimerCallback& cb);
     void DelTimer(TimerId timerId);
@@ -28,6 +23,7 @@ public:
 private:
     CTimeManager();
     ~CTimeManager();
+    friend class CSingleton<CTimeManager>;
     friend class CTimeManagerImplNormal; // 友元类，map实现类
     friend class CTimeManagerImplWheel; // 友元类，时间轮实现类
 

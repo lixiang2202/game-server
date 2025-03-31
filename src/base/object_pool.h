@@ -4,7 +4,7 @@
 #include "logging.h"
 
 template<typename T>
-class CObjectPool: public noncopyable
+class CObjectPool: public CNonCopyable
 {
 public:
     CObjectPool()

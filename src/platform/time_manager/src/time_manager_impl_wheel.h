@@ -59,7 +59,7 @@ struct TimeWheelTask : public TimeTask
 using TickResult = std::pair<std::list<TimeWheelTask*>, bool>;
 
 template<int SLOT_COUNT> // 时间轮槽的数量
-class CTimeWheel : public noncopyable
+class CTimeWheel : public CNonCopyable
 {
 public:
     void AddTask(TimeWheelTask* ap_task)
