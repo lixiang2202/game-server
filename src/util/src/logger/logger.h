@@ -59,8 +59,17 @@ void Log(LogLevel level, Args&&... args) {
     std::cerr << oss.str();
 }
 
+template<typename... Args>
+void AlwaysAssert(bool condition, Args&&... args) {
+    if (!condition) {
+        Log(LogLevel::ERROR, "Assertion failed: ", std::forward<Args>(args)...);
+        std::terminate(); // 终止程序
+    }
+}
+
 // 定义日志宏
 #define LogDebug(...) Log(LogLevel::DEBUG, __VA_ARGS__)
 #define LogInfo(...) Log(LogLevel::INFO, __VA_ARGS__)
 #define LogWarn(...) Log(LogLevel::WARN, __VA_ARGS__)
 #define LogError(...) Log(LogLevel::ERROR, __VA_ARGS__)
+#define Assert(exp, ...) AlwaysAssert(exp, __FILE__, __LINE__, ##__VA_ARGS__)
